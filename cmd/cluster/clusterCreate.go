@@ -37,7 +37,6 @@ import (
 	conf "github.com/rancher/k3d/v4/pkg/config/v1alpha1"
 	"github.com/rancher/k3d/v4/pkg/runtimes"
 	k3d "github.com/rancher/k3d/v4/pkg/types"
-	"github.com/rancher/k3d/v4/version"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -182,7 +181,7 @@ func NewCmdClusterCreate() *cobra.Command {
 	cmd.Flags().StringVar(&ppFlags.APIPort, "api-port", "random", "Specify the Kubernetes API server port exposed on the LoadBalancer (Format: `[HOST:]HOSTPORT`)\n - Example: `k3d cluster create --servers 3 --api-port 0.0.0.0:6550`")
 	cmd.Flags().IntVarP(&cliConfig.Servers, "servers", "s", 1, "Specify how many servers you want to create")
 	cmd.Flags().IntVarP(&cliConfig.Agents, "agents", "a", 0, "Specify how many agents you want to create")
-	cmd.Flags().StringVarP(&cliConfig.Image, "image", "i", fmt.Sprintf("%s:%s", k3d.DefaultK3sImageRepo, version.GetK3sVersion(false)), "Specify k3s image that you want to use for the nodes")
+	cmd.Flags().StringVarP(&cliConfig.Image, "image", "i", "rke2d:latest", "Specify rke2 image that you want to use for the nodes")
 	cmd.Flags().StringVar(&cliConfig.Network, "network", "", "Join an existing network")
 	cmd.Flags().StringVar(&cliConfig.ClusterToken, "token", "", "Specify a cluster token. By default, we generate one.")
 	cmd.Flags().StringArrayVarP(&ppFlags.Volumes, "volume", "v", nil, "Mount volumes into the nodes (Format: `[SOURCE:]DEST[@NODEFILTER[;NODEFILTER...]]`\n - Example: `k3d cluster create --agents 2 -v /my/path@agent[0,1] -v /tmp/test:/tmp/other@server[0]`")

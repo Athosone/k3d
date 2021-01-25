@@ -47,7 +47,7 @@ func (d Docker) GetKubeconfig(ctx context.Context, node *k3d.Node) (io.ReadClose
 
 	log.Tracef("Container Details: %+v", container)
 
-	reader, _, err := docker.CopyFromContainer(ctx, container.ID, "/output/kubeconfig.yaml")
+	reader, _, err := docker.CopyFromContainer(ctx, container.ID, "/etc/rancher/rke2/rke2.yaml")
 	if err != nil {
 		log.Errorf("Failed to copy from container '%s'", container.ID)
 		return nil, err
