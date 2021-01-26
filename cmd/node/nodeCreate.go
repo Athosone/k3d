@@ -31,6 +31,7 @@ import (
 	k3dc "github.com/rancher/k3d/v4/pkg/client"
 	"github.com/rancher/k3d/v4/pkg/runtimes"
 	k3d "github.com/rancher/k3d/v4/pkg/types"
+	"github.com/rancher/k3d/v4/version"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -65,8 +66,7 @@ func NewCmdNodeCreate() *cobra.Command {
 		log.Fatalln("Failed to register flag completion for '--cluster'", err)
 	}
 
-	cmd.Flags().StringP("image", "i", "rke2d:latest", "Specify k3s image used for the node(s)")
-
+	cmd.Flags().StringP("image", "i", fmt.Sprintf("%s:%s", k3d.DefaultK3sImageRepo, version.GetK3sVersion(false)), "Specify k3s image used for the node(s)")
 	cmd.Flags().BoolVar(&createNodeOpts.Wait, "wait", false, "Wait for the node(s) to be ready before returning.")
 	cmd.Flags().DurationVar(&createNodeOpts.Timeout, "timeout", 0*time.Second, "Maximum waiting time for '--wait' before canceling/returning.")
 

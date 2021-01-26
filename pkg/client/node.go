@@ -338,6 +338,8 @@ func patchServerSpec(node *k3d.Node) error {
 
 	node.Args = append(node.Args, "--tls-san", node.ServerOpts.KubeAPI.Host) // add TLS SAN for non default host name
 	node.Args = append(node.Args, "--snapshotter", "native")
+	node.Args = append(node.Args, "--selinux")
+	node.Args = append(node.Args, "--profile", "cis-1.5")
 
 	return nil
 }
