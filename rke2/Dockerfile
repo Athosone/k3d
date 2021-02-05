@@ -1,4 +1,4 @@
-FROM centos
+FROM centos:7
 
 RUN curl -sfL https://get.rke2.io | sh -
 
