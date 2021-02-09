@@ -337,6 +337,7 @@ func patchServerSpec(node *k3d.Node) error {
 	node.Labels[k3d.LabelServerAPIPort] = node.ServerOpts.KubeAPI.Binding.HostPort
 
 	node.Args = append(node.Args, "--tls-san", node.ServerOpts.KubeAPI.Host) // add TLS SAN for non default host name
+	node.Args = append(node.Args, "--snapshotter", "native")
 
 	return nil
 }

@@ -368,7 +368,7 @@ ClusterCreatOpts:
 	// connection url is always the name of the first server node (index 0)
 	connectionURL := fmt.Sprintf("https://%s:%s", generateNodeName(cluster.Name, k3d.ServerRole, 0), k3d.DefaultAPIPort)
 	clusterCreateOpts.GlobalLabels[k3d.LabelClusterURL] = connectionURL
-	clusterCreateOpts.GlobalEnv = append(clusterCreateOpts.GlobalEnv, fmt.Sprintf("K3S_TOKEN=%s", cluster.Token))
+	clusterCreateOpts.GlobalEnv = append(clusterCreateOpts.GlobalEnv, fmt.Sprintf("RKE2_TOKEN=%s", cluster.Token))
 
 	nodeSetup := func(node *k3d.Node, suffix int) error {
 		// cluster specific settings
@@ -391,7 +391,7 @@ ClusterCreatOpts:
 
 			// the cluster has an init server node, but its not this one, so connect it to the init node
 			if cluster.InitNode != nil && !node.ServerOpts.IsInit {
-				node.Env = append(node.Env, fmt.Sprintf("K3S_URL=%s", connectionURL))
+				node.Env = append(node.Env, fmt.Sprintf("RKE2_URL=%s", connectionURL))
 			}
 
 		} else if node.Role == k3d.AgentRole {
